@@ -37,6 +37,28 @@
 				<h3>Latest Posts</h3>
 				<!--HINT:bloglist-->
 				<div class="vertbreak"></div>
+				<article id="postExample">
+					<div id="bodyHeader" class="pagehead">
+						<!--HINT:posttitle-->
+						<h1>Magical Raceway Now On Github</h1>
+						<!--HINTEND:posttitle-->
+					</div>
+					<img src="assets/MagicalRacewayBanner.png" class="bigImage" title="Magical Raceway Now On Github">
+					<p>Tada! My game Magical Raceway is now available to download as a Github release! Version 0.5 as well as every earlier version I archived is available for download. It's a retro style arcade racing game with magical girls I developed solo. Check out the page <a href="MagicalRaceway/index.html">here</a> if you want to learn more about how it is at the moment, and my plans for the game. I will use the rest of this post to talk about its history up until this point.</p>
+					<h2>The early days: Before the Raceway became Magical</h2>
+					<div class="floatRight">
+						<img src="assets/outrungbast1.png" title="outrun? outrun what?" alt="OutRun for the GBA">
+						<p><span class="italic">OutRun</span> in <span class="italic">Sega Arcade Gallery</span> for the GBA.</p>
+					</div>
+					<p>Initially, I only wanted to replicate the sort of graphical effect used in classic arcade racing games like <span class="italic">OutRun</span> and <span class="italic">Hang On</span> because I thought it would be fun. Although, my <span class="italic">actual</span> point of reference was a Game Boy Advance port of some of Sega's classic arcade games made by the infamous THQ. Recreating this in Unity wouldn't be hard, right? I am targeting modern computers with gigahertz multicore processors and even integrated GPUs can render 2D graphics as if it were nothing. So all I have to work out is the maths, and it was some pretty complicated maths that I needed to figure out to get this to work.</p>
+					<p>To control the appearance of the road, five parameters need to be varied at runtime: two position coordinates, how much the road bends in both the horizontal and vertical directions and how much split there is between the two road segments. Well, the way to simulate the road width varying without stretching the road texture is to have two segments with an imaginary line marking the boundary between them, so that's what the last parameter controls: the difference in road offset between the two sides. If the road split value gets large enough, the road appears to split into a dual carriageway! Magical Raceway's road functions basically the same as this version of <span class="italic">OutRun</span> does in that respect.</p>
+					<p>...</p>
+				</article>
+				<p class="dateNote">Posted 4 July 2022</p>
+				<div class="postexpand">
+					<a href="blog/20220704_magical_raceway_0_5.html">See more...</a>
+				</div>
+				<div class="vertbreak"></div>
 				<article id="firstPost">
 					<div id="bodyHeader" class="pagehead">
 						<!--HINT:posttitle-->
@@ -49,7 +71,7 @@
 				</article>
 				<p class="dateNote">Posted 18 May 2022</p>
 				<div class="postexpand">
-					<a href="blog\20220518_first_post.html">See more...</a>
+					<a href="blog/20220518_first_post.html">See more...</a>
 				</div>
 				<div class="vertbreak"></div>
 				<!--HINTEND:bloglist-->

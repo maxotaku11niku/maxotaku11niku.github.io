@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Stuff by Max - Blog - Magical Raceway Now On Github</title>
+		<link rel="stylesheet" href="../stdstyle.css" />
+		<link rel="shortcut icon" href="../assets/icon.png" />
+	</head>
+	<body>
+		<div id="commonHeader" class="masterhead">
+			<img src="../assets/banner.png" id="banner" title="Welcome to my website!"/>
+		</div>
+		<div id="belowHead">
+			<div id="topnavbar" class="topnav">
+				<ul>
+					<li><a href="../index.html">Home</a></li>
+					<li><a href="../blogtop.html">Blog</a></li>
+					<li><a href="../projectstop.html">Projects</a></li>
+					<li><a href="../links.html">Links</a></li>
+					<li><a href="../about.html">About</a></li>
+				</ul>
+			</div>
+			<div id="topnavbarmobile" class="topnavmobile">
+				<p id="menuButton" class="closed">Menu</p>
+				<ul id="menu" class="closed">
+					<li><a href="../index.html">Home</a></li>
+					<li><a href="../blogtop.html">Blog</a></li>
+					<li><a href="../projectstop.html">Projects</a></li>
+					<li><a href="../links.html">Links</a></li>
+					<li><a href="../about.html">About</a></li>
+				<ul>
+			</div>
+			<div id="mainBody" class="main">
+				<div id="bodyHeader" class="pagehead">
+					<h1>Blog maxBlog = new Blog();</h1>
+					<h2>My blog</h2>
+				</div>
+				<!--HINT:nav-->
+				<div id="blognav" class="postnav">
+					<ul>
+						<li><a href="20220518_first_post.html">Previous post: The site is now live!</a></li>
+						<li><a href="">No next post</a></li>
+					</ul>
+				</div>
+				<!--HINTEND:nav-->
+				<div class="vertbreak"></div>
+				<!--DATE:2022-07-04-->
+				<!--HINT:blogpost-->
+				<p class="dateHead">4 July 2022</p>
+				<article id="postExample">
+					<div id="bodyHeader" class="pagehead">
+						<!--HINT:posttitle-->
+						<h1>Magical Raceway Now On Github</h1>
+						<!--HINTEND:posttitle-->
+					</div>
+					<img src="../assets/MagicalRacewayBanner.png" class="bigImage" title="Magical Raceway Now On Github">
+					<p>Tada! My game Magical Raceway is now available to download as a Github release! Version 0.5 as well as every earlier version I archived is available for download. It's a retro style arcade racing game with magical girls I developed solo. Check out the page <a href="../MagicalRaceway/index.html">here</a> if you want to learn more about how it is at the moment, and my plans for the game. I will use the rest of this post to talk about its history up until this point.</p>
+					<h2>The early days: Before the Raceway became Magical</h2>
+					<div class="floatRight">
+						<img src="../assets/outrungbast1.png" title="outrun? outrun what?" alt="OutRun for the GBA">
+						<p><span class="italic">OutRun</span> in <span class="italic">Sega Arcade Gallery</span> for the GBA.</p>
+					</div>
+					<p>Initially, I only wanted to replicate the sort of graphical effect used in classic arcade racing games like <span class="italic">OutRun</span> and <span class="italic">Hang On</span> because I thought it would be fun. Although, my <span class="italic">actual</span> point of reference was a Game Boy Advance port of some of Sega's classic arcade games made by the infamous THQ. Recreating this in Unity wouldn't be hard, right? I am targeting modern computers with gigahertz multicore processors and even integrated GPUs can render 2D graphics as if it were nothing. So all I have to work out is the maths, and it was some pretty complicated maths that I needed to figure out to get this to work.</p>
+					<p>To control the appearance of the road, five parameters need to be varied at runtime: two position coordinates, how much the road bends in both the horizontal and vertical directions and how much split there is between the two road segments. Well, the way to simulate the road width varying without stretching the road texture is to have two segments with an imaginary line marking the boundary between them, so that's what the last parameter controls: the difference in road offset between the two sides. If the road split value gets large enough, the road appears to split into a dual carriageway! Magical Raceway's road functions basically the same as this version of <span class="italic">OutRun</span> does in that respect.</p>
+					<p>Soon after finalising the basics of this road rendering system, I decided I wanted to make a game out of it. Why not? All the basic stuff is there, how hard can it be? But what of the theme? How about... magical girls! Why not, it'll be fun! Within days of deciding this fact, I made the first sprite of the character who I would later call Tachya Celeris (more on how I came to that name later).</p>
+					<h2>Adding a little bit of magic</h2>
+					<div class="floatLeft">
+						<img src="../assets/magicalracewayold.png" title="alpha version be like" alt="Earliest screenshot of Magical Raceway">
+						<p>The earliest screenshot of Magical Raceway, showing how scuffed the earliest versions looked.</p>
+					</div>
+					<p>Adding magical girls to the mix is not a very revolutionary change if several other examples are anything to go by. Still, it's what I did, and I wished to carry on regardless of my lack of originality. Even the name 'Magical Raceway' is as straightforward as you can get. It still somewhat sounds like a working title!</p>
+					<p>After deciding that I wanted to make a magical girl racing game, I needed to implement gameplay mechanics. Physics is very important, for one. You've gotta have air resistance modelled so that the player cannot just go at the speed of light. You've gotta have centrifugal forces modelled so that curves are actually challenging. And of course, it wouldn't be much of a game if you didn't have anything to do. This game has a simple goal: get to the end before time runs out. Very easy to implement as a goal, as well. Outside of the road has to slow you down, there has to be obstacles and stuff, moving and static, and crashing into them slows you down even more. Stop me if this sounds straightforward, because it is painfully straightforward. It's common sense for this kind of game. So, inevitably, I decided the gameplay needed a bit more flair, with the graze system, designed to give more points for being risky and getting up close and personal with your rivals. Or the edge of the road. I recognised immediately that doing a graze is much harder on a corner, so you get more points if you graze on a tight corner.</p>
+					<p>To complement the retro aesthetics (which I chose because pixel graphics are easy, same as so many indie developers), the music had to be retro style too. The obvious 'chiptune cliche' is NES-type pulse waves and stuff like that, but I chose FM synthesis because it had more depth and I had also got into PC-98 emulation. And since I wanted to keep file sizes small, I decided to take the unorthodox method of <span class="italic">emulating the Yamaha YM2608 in real time.</span> But Unity has built in support for tracker modules, doesn't it? Well, it's not very good (it consists of transforming the entire module to PCM at runtime) and was primarily introduced at a time when smartphones didn't have a lot of storage space. Also, sample-based trackers gave me a bit of a dilemma: to get good sounds I had to use long samples (much more than 1 period) but if they're too big then the size benefit is negated. But there was an <span class="italic">even</span> bigger problem: it was hard for me to do a non-trivial loop in PCM! And Unity considers branch effects (which let you do non-trivial loops) as the end of a module. Still, perhaps I just went a little insane after all.</p>
+					<h2>The world of Magical Raceway</h2>
+					<p>Since this is a simple game, I probably don't have to pay much attention to the specific details of the world. Essentially, it is a backdrop to the real action, and so I chose locations basically at random. However, there are some details about this world I would like to lay out right now. In this world, <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/SufficientlyAnalyzedMagic">Sufficiently Analysed Magic</a> is in effect, so magic is (at least in the present day) treated as a science. You may be able to see only magical girls in this game, and this world has only one sex: female. Don't ask me how reproduction is supposed to work: I'm not a biologist! Oh, and you may have also noticed their... size. Let's just say they deal with it with magic. I have a better idea in my head that elaborates on this, but it may change and it isn't important right now. Anyway, so that explains the technological artifacts in this game.</p>
+					<p>I haven't thought too deeply about culture in this world just yet, but I will now talk about Tachya. Her name is supposed to evoke speed without using blatantly common words which would make her name too cheesy. Tachya comes from the Greek word 'ταχύς' (tachús) meaning 'swift, quick, fast' and Celeris comes from the Latin word 'celer' meaning... exactly the same thing. Smart, yet very stupid. She likes to go fast, which is the only personailty trait I want to give to her at this moment. Suffice to say, she feels right at home on the Magical Raceway.</p>
+					<div class="vertbreak"></div>
+					<p>Anyway, that's it for now. I will continue to update Magical Raceway when I have the time. Hopefully, I can get it to a 'finished' state in the future, and not abandon it completely.</p>
+				</article>
+				<!--HINTEND:blogpost-->
+			</div>
+			<footer id="commonFooter">
+				<p>2022 Maxim Hoxha</p>
+			</footer>
+		</div>
+		<script src="../scripts/menuopen.js"></script>
+	</body>
+</html>

@@ -63,6 +63,22 @@ img.galleryImage
 	width: 100%;
 }
 
+img.bigImage
+{
+	width: 80%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img.float
+{
+	width: 90%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 div.topnavmobile
 {
 	display: block;
@@ -257,8 +273,6 @@ div.warning p
 	margin-left: 0pt;
 }
 
-
-
 div.main
 {
 	background-color: #FFFFFFEE;
@@ -267,6 +281,51 @@ div.main
 	margin-right: auto;
 	margin-left: auto;
 }
+
+div.floatRight
+{
+	float: right;
+	margin: 8pt;
+	width: 30%;
+	text-align: center;
+}
+
+div.floatRight img
+{
+	width: 90%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.floatRight p
+{
+	font-size: 8pt;
+	color: #333333;
+}
+
+div.floatLeft
+{
+	float: left;
+	margin: 8pt;
+	width: 30%;
+	text-align: center;
+}
+
+div.floatLeft img
+{
+	width: 90%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.floatLeft p
+{
+	font-size: 8pt;
+	color: #333333;
+}
+
 
 span.bold
 {

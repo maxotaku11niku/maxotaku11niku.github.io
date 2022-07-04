@@ -261,7 +261,7 @@ def ExtractBlogDateStr(outerHtml):
 class BlogPost:
     def __init__(self, fPath):
         self.filePath = fPath
-        htmlFull = open(fPath).read()
+        htmlFull = open(fPath, encoding="utf8").read()
         self.innerHtml = ExtractBlogText(htmlFull)
         self.isodate = ExtractBlogDate(htmlFull)
         self.title = ExtractBlogTitle(self.innerHtml)
@@ -355,9 +355,9 @@ def BuildBlog(isTest = False): #Call to build the entire blog
         blogPostList.append(BlogPost(f))
     BlogPost.SortNavLinks(blogPostList)
     blogListHtml = GenerateBlogList(blogPostList)
-    open(blogMainPath, "w").write(blogListHtml)
+    open(blogMainPath, "w", encoding="utf8").write(blogListHtml)
     for b in blogPostList:
-        open(b.filePath, "w").write(b.GenerateFixedBlogPostHtml())
+        open(b.filePath, "w", encoding="utf8").write(b.GenerateFixedBlogPostHtml())
         
 def GenerateNewBlogFile(filename): #Call to generate a new blog post from the template
-    open("blog/" + filename + ".html", "x").write(newBlogPostTemplate)
+    open("blog/" + filename + ".html", "x", encoding="utf8").write(newBlogPostTemplate)
