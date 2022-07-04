@@ -58,6 +58,11 @@ img.previewImage
 	margin: 8pt;
 }
 
+img.galleryImage
+{
+	width: 100%;
+}
+
 div.topnavmobile
 {
 	display: block;
