@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Stuff by Max - Blog - Basic Video On PC-9801</title>
+		<link rel="stylesheet" href="../stdstyle.css" />
+		<link rel="shortcut icon" href="../assets/icon.png" />
+	</head>
+	<body>
+		<div id="commonHeader" class="masterhead">
+			<img src="../assets/banner.png" id="banner" title="Welcome to my website!"/>
+		</div>
+		<div id="belowHead">
+			<div id="topnavbar" class="topnav">
+				<ul>
+					<li><a href="../index.html">Home</a></li>
+					<li><a href="../blogtop.html">Blog</a></li>
+					<li><a href="../projectstop.html">Projects</a></li>
+					<li><a href="../links.html">Links</a></li>
+					<li><a href="../about.html">About</a></li>
+				</ul>
+			</div>
+			<div id="topnavbarmobile" class="topnavmobile">
+				<p id="menuButton" class="closed">Menu</p>
+				<ul id="menu" class="closed">
+					<li><a href="../index.html">Home</a></li>
+					<li><a href="../blogtop.html">Blog</a></li>
+					<li><a href="../projectstop.html">Projects</a></li>
+					<li><a href="../links.html">Links</a></li>
+					<li><a href="../about.html">About</a></li>
+				<ul>
+			</div>
+			<div id="mainBody" class="main">
+				<div id="bodyHeader" class="pagehead">
+					<h1>Blog maxBlog = new Blog();</h1>
+					<h2>My blog</h2>
+				</div>
+				<!--HINT:nav-->
+				<div id="blognav" class="postnav">
+					<ul>
+						<li><a href="20220704_magical_raceway_0_5.html">Previous post: Magical Raceway Now On Github</a></li>
+						<li><a href="">No next post</a></li>
+					</ul>
+				</div>
+				<!--HINTEND:nav-->
+				<div class="vertbreak"></div>
+				<!--DATE:2023-01-20-->
+				<!--HINT:blogpost-->
+				<p class="dateHead">20 January 2023</p>
+				<article id="postExample">
+					<div id="bodyHeader" class="pagehead">
+						<!--HINT:posttitle-->
+						<h1>Basic Video On PC-9801</h1>
+						<!--HINTEND:posttitle-->
+					</div>
+					<img src="../assets/pc98video_mockup.png" class="bigImage" title="Basic Video On PC-9801">
+					<p>So I've been doing a little thing. Nothing fancy at all. Just a bit of video stuff on computers. No biggie. Well, it wouldn't be anything to write home about unless I had either:</p>
+					<ul>
+						<li>Made a codec that's better than <a href="https://en.wikipedia.org/wiki/AV1">AV1</a> or something.</li>
+						<li>Made decent video work on an outdated as hell system.</li>
+					</ul>
+					<p>As you can tell from the post title, I did the latter. I made a video codec with the <a href="https://en.wikipedia.org/wiki/PC-98">NEC PC-9801</a> in mind and a video player to play those videos, which was not an easy task. I should mention that so far I have not tested this on real hardware, but I'm pretty confident that it can work. But what is the PC-98?</p>
+					<h2>A Brief Introduction to the PC-98</h2>
+					<p>The Wikipedia article I linked has the full details, but if you can't be bothered to follow that link then read this section. You can skip it if you're already familiar with the PC-98.</p>
+					<p>The PC-9800 series is a series of PCs that were manufactured by the Japanese electronics company NEC from 1982 to 2003. It was billed as a relatively powerful system for businesses, and capable of displaying Japanese text in its full glory, which IBM PC-compatibles (ordinary PCs) were not able to do very well until the 90s. It dominated the Japanese PC market until the late 90s when IBM PC-compatibles started to displace them. Most significantly for modern users, there were quite a few games made for this system which had to deal with the fact that it was first and foremost a business computer, so it was not good at really dynamic games. Most PC-98 games were therefore rather slow-paced, including adventure games, visual novels, simulation games, and others. And a lot of porn.</p>
+					<p>A 'stereotypical' PC-98 has 16-colour graphics and can output to a resolution of 640x400. Actually, the very first models could only handle 8 colours but could still output to 640x400, which was better than the IBM PC by a long shot. Sound-wise, the FM sound of a YM2203 (and later YM2608) soundchip is considered 'iconic' for the PC-98. Later models were even more capable than this, but by that time the platform was dying out anyway. Even then, they tended to use MS-DOS for a long time, and had x86 processors, so they were more similar to the IBM PC than a lot of PC systems were. This 'stereotypical' PC-98 was to be my target. Why not the IBM PC? Because it's been done before in <a href="https://trixter.oldskool.org/2014/06/17/8088-domination/">8088 Domination</a>. It might turn out that video like this on relatively early PC-98 models has been done before, but whatever, it was fun. So how did I do it?</p>
+					<h2>The Target</h2>
+					<p>The absolute minimum system we are targeting is the PC-9801VX from 1986, with the following specs:</p>
+					<ul>
+						<li>CPU: 8 MHz Intel 80286 or 10 MHz NEC V30 (an x86-compatible processor)</li>
+						<li>RAM: 640 KB included, can be expanded to 8832 KB</li>
+						<li>Storage: Option for 20 MB hard disk drive (VX4)</li>
+						<li>GPU: μPD7220 with 16-colour capability (display 16 colours from a master palette of 4096)</li>
+						<li>Sound: Only an internal buzzer</li>
+						<li>4 expansion slots available</li>
+					</ul>
+					<p>In the end, I only managed to reach 'partial' compatibility from what I can tell. I don't have real hardware so all testing was done in the Neko Project II emulator, which I hope is accurate enough for now. A test on real hardware will be necessary at sometime, so take all these results as preliminary. So let's break each of these down to see what we can do. Now the expansion slots part is not that relevant really, so we'll ignore it from the off.</p>
+					<p>The CPU is - to put it bluntly - slow. This means there is little margin for error in the player program. It has to run as fast as possible. We cannot afford any overheads so working close to the metal is the way to go. This is why 98VIDEOP.COM is written entirely in x86 assembly language. No, I'm not taking any of this 'optimising compilers tho' crap. We need full control.</p>
+					<p>The RAM limitation is quite punishing. It's not reasonable to expect that we can just load the entire video into RAM and then play it from there, so we have to stream the data from the hard disk constantly. More on how that's done later. The storage limit is even more punishing, since it limits both the quality and length of videos we can play. This turned out to be the most annoying limitation, but that part is solely handled by the encoder program, since the player can play videos of virtually any reasonable length. More interesting though are the graphics and sound limitations.</p>
+					<h2>Processing Video For a PC-98</h2>
+					<p>The GPU we are targeting can only display 16 colours at a time, which is not a lot, to put it bluntly. Fortunately, we can choose those 16 colours from a master palette of 4096 colours. We have to take our nice 24-bit colour frames and turn them into 4-bit palettised frames. First we have to choose a palette, and even though we could change the palette every frame, this is a complicated thing to handle so for now the palette is fixed for the entire video. A simple way to convert the image is to just check each pixel and find the closest colour in our palette to it. Leaving aside the problem of how you quantify how 'close' each colour is to another, doing this alone simply does not lead to a very good result. But there is a way out: <a href="https://en.wikipedia.org/wiki/Dither">dither that shit!</a></p>
+					<img src="../assets/pc98video_comparison_dither.png" class="bigImage" title="weebs know exactly what this is" alt="Comparison of how much dithering can improve a low-colour-depth image's quality using the Lucky Star opening for reference">
+					<p>With this example (admittedly not ideal due to being cartoony, but offset by using a non-ideal palette) you can see that not applying dither leads to wildly incorrect colours and extreme colour banding, which is not a good look. Applying a nice ordered dither gets us much closer to the original colours since we can approximate colours that are not in the palette. I did the colour distance determination in <a href="https://en.wikipedia.org/wiki/YUV">YUV space</a> using the formula sqrt(u<span class="superscript">2</span> + v<span class="superscript">2</span>) + |y| which is a little idiosyncratic but it works better than r<span class="superscript">2</span> + g<span class="superscript">2</span> + b<span class="superscript">2</span>. And in order to dither, the input colour must be 'perturbed' in a regular way and then compared. The perturbation can be done in both the luminosity direction and the chroma directions. Perturbing the luminosity and hue together works best I feel, whereas perturbing the saturation does not work as well.</p>
+					<p>The sound has to be PCM, that is we store the actual waveform, since we need to be able to deal with any sound that comes our way. The PC-9801-86 soundboard does have a PCM channel that can do stereo sound at 16-bit depth, which is pretty good. The problem is that soundboard was released in 1993, and by that time digital video was becoming a more regular thing. There is a way out, though. We can actually play PCM sound through the internal buzzer! It will be mono, sure, but because we can generate pulses with microsecond precision we can get passable audio if we play via <a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">PWM</a>.</p>
+					<p>Well that's all fine and dandy, but now we have to think about compression and how we actually get a video out.</p>
+					<h2>Compressing the Video to Save Space and Time</h2>
+					<p>Compressing a video is very necessary. If we want to display a video that takes up the entire screen at a passable framerate of 24 FPS, then we find that we need 24 x 640 x 400 x 4 = 23.4 Mb/s of bandwidth, which sounds like it might be a bit much for our poor 80286. To display a single music video of, say, 4 minutes, we would therefore need <span class="italic"><span class="bold">703.1 megabytes!</span></span> (The audio stream takes up much less data than the video stream, so I've ignored it for now) This is, quite frankly, ridiculous. But surely compression would demand more from our wimpy CPU, right? Not necessarily. If we have to transfer less data to RAM (which we have to do anyway even if we're constantly overwriting it) it takes less time. If we are judicious in our choice of compression method, we can also save time in interpreting the compressed data.</p>
+					<p>One method is to only record <span class="italic">differences</span> between frames. If nothing is changing it seems a great waste to act like something is changing. Additionally, if something only changes a little in the source, you can get away with not changing it when you encode it. People will either not notice or not care. Greater compression can be achieved by understanding how the graphics memory is laid out, however.</p>
+					<div class="floatRight">
+						<img src="../assets/pc98video_comparison_luckystar.png" title="SHINASAI" alt="Konata and Kagami from Lucky Star converted to display on the PC-98">
+						<p>A still from the Lucky Star opening compared with a conversion to .98v format, which is (hopefully) compatible with a PC-9801RA</p>
+					</div>
+					<p>The VRAM in a typical PC-98 is laid out in a <span class="italic"><a href="https://en.wikipedia.org/wiki/Planar_(computer_graphics)">planar</a></span> rather than <span class="italic"><a href="https://en.wikipedia.org/wiki/Packed_pixel">chunky</a></span> fashion. This means that the colour data for a pixel is spread out across multiple bitplanes, four in our case. It means that it is more efficient to write to VRAM in chunks of 8 pixels, but why stop there? The 80286 has a 16-bit data bus, so we can just use 16-pixel chunks to store our image information. It does make it much more cumbersome to only change one pixel, requiring a lot of bit operations, but there is no point in changing the image 1 pixel at a time in this case . It also means that if our video uses less colours it will automatically be smaller. We store <span class="italic">deltas</span> (differences between frames) with that planar format in mind. Each one has an offset - a position in a VRAM plane to write to - and a length - how many 16-bit words to write - and also a bit indicating if it is to <span class="italic">copy</span> some data or <span class="italic">fill</span> a portion of memory with a constant word. Fills obviously take up less data than copies, but in my examples copy deltas seem to be more common. The total number of bytes written determines the CPU load.</p>
+					<p>We can acheive compression even if we record <span class="italic">every</span> delta. But we don't need to because some of the deltas represent a small change that likely won't be noticed, or otherwise it will be tolerated ("eh, it's an old system, it ain't gonna be perfect"). A simple way to quantify the degree of change is to check for each delta how many bits are changed. Then we give priority to commiting deltas which change the most of any given bitplane, and throwing away any deltas that aren't impactful enough. I settled on setting the limit to 'n words per plane per frame' which is equivalent to the bitrate times a conversion factor. The planar format means that we should put similar colours at palette indexes that are 'close' to each other. The distance between two indexes is the number of bits you have to flip to get between the two. In other words, the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming distance</a>. Optimising the palette means that we can choose to shave off more deltas and still get the same video quality. However, not synchronising the planes together results in colour artifacts, which I chose to tolerate. </p>
+					<p>Now technicalities related to displaying the video itself are one of the main reasons why this compression scheme (which is functionally just a variant of the one used in <a href="https://trixter.oldskool.org/2014/06/17/8088-domination/">8088 Domination</a>) seems pretty simple compared to modern video codecs (the other reason being my willingness to program it). In fact, we can just exploit the x86 instructions <span class="code">rep movsw</span> for copies and <span class="code">rep stosw</span> for fills. These instructions are much faster than a naïve routine, which for copies would look like this:</p>
+					<div class="code">
+						<h2>x86 Assembly</h2>
+						<p>mov si, srcoffset ;copy the source offset into the si register</p>
+						<p>mov di, dstoffset</p>
+						<p>mov es, dstsegment ;es is a segment register</p>
+						<p>mov cx, length</p>
+						<p>mov ds, srcsegment ;changing ds throws off all our other variable references. segmentation can be a bitch sometimes</p>
+						<p>copyloop:</p>
+						<p>mov ax, [si] ;no segment override here since memory pointers implicitly use ds</p>
+						<p>mov es:[di], ax ;we have to use a temp register since x86 does not allow mov {memory location}, {memory location}</p>
+						<p>add si, 2 ;1 word = 2 bytes</p>
+						<p>add di, 2</p>
+						<p>dec cx</p>
+						<p>jnz copyloop</p>
+					</div>
+					<p>The difference is like the difference between using <span class="code">memcpy()</span> and a for loop just to simply copy bytes.</p>
+					<h2>Handling Sound</h2>
+					<p>Sound data takes up the minority of the space in a typical video file. So you wouldn't expect it to dominate the processing time either. It was perfectly feasible for me to just include an audio stream uncompressed and I did do that earlier in development. But then I decided to compress that as well. The scheme I chose is a simple <a href="https://en.wikipedia.org/wiki/Adaptive_differential_pulse-code_modulation">ADPCM</a> scheme. It stores the differences between samples, but with an implicit multiplying factor that varies based on the last difference decoded. This multiplying factor is always a power of 2 because multiplying by a power of 2 is equivalent to bitshifting, which is a fast operation. Fast is good. Nevertheless, the code to decode ADPCM somehow ended up being longer than the code to decode the video frames. It is indeed very possible to write crappy code in assembly language. I don't claim to have found the optimal way to do anything presented here.</p>
+					<p>Once we have the raw samples we have to send them to the sound hardware. Doing this with the PC-9801-86 soundboard is easy, just output the samples to the FIFO (first in, first out) buffer. There is no need for precise timing, just push all the samples for a frame all at once, and the hardware will work through them all when it needs to. But as I mentioned, this piece of hardware came much later than the PC-98s I hope to support. By 1993, a typical PC-98 was getting powerful enough that my examples are not even a challenge for them. This includes the models that can run the first 5 Touhou games, which have 66 MHz processors. My examples (hopefully, if Neko Project II's timings are accurate enough) can run with a 20 MHz processor with some breathing room. Can we output full PCM on the pre-86 models? We can, with caveats. The way to do this is a bit of a hack, but a well known one. (More details at <a href="https://en.wikipedia.org/wiki/PC_speaker#Pulse-width_modulation">this Wikipedia article</a>)</p>
+					<p>PC-98s all have an internal buzzer, much like IBM PC-compatibles. This is primarily intended to make small beeps to signal the status of the computer, such as the startup 'beep-boop' that comes before the memory check. It turns out, however, that we can control its level - which can only be 'high' or 'low' - with microsecond precision. Which means we can play arbitrary sounds with PWM (pulse width modulation) which don't sound too off. On the earliest models, there were two problems that made this impractical for wave sound. One is the lack of programmable timer control for the buzzer, which means the CPU has to be in sync with the buzzer, which means we <span class="italic">have</span> to count our cycles, which means that the rest of the code becomes a clusterfuck of precise and undisruptable timing that does not admit any tolerances. Another is the fact that directly outputting the requested level to the buzzer costs so many cycles that we can no longer get recognisable sound, since our time resolution will be reduced considerably. But it's not the end of the world, since a few pre-VX models had a programmable timer for the buzzer. That makes it simpler. We set up one timer interrupt to signal every time we need to push a sample, and another to essentially generate a pulse of the appropriate length. Much nicer.</p>
+					<p>My approach was to convert the decoded samples from ADPCM to pulse widths, which required sacrificing some of the quality, unfortunately. There's a tradeoff between bit depth and sample rate. You want a higher sample rate so that you can properly encode high frequencies? Sorry, you'll have to settle with a lower bit rate which means a lower dynamic range. Additionally, since I use the supported sample rates of the 86 soundboard as a baseline, I choose the appropriate period for the sample timer interrupt to be as close as possible to those. This results in some distortion since the correspondence is only approximate. It would have been better if I had done it the other way around: converting data meant for the buzzer PWM method to 86-compatible format, but this means that the 86 soundboard then provides no benefit. This is actually quite reminiscent of a wider problem: that of trying not to leave those with weak hardware behind whilst also trying to make use of strong hardware. Eventually, sometimes you have to decide when a particular piece of hardware is just too weak. Hell, I've been doing this whole thing for an obsolete computer system the whole time.</p>
+					<h2>How Did I Do?</h2>
+					<p>I think, somewhat good. This isn't winning any demoscene competitions any time soon, since the guys involved in that are <span class="italic">way</span> more talented than I am. I would think the quality of my examples would have to be reduced quite a bit before they can run on the PC-9801VX, and also my code needs more optimisations for that to happen. They should run fine on a PC-9801RA, which has a 20 MHz 80386, but I do not have proof of that yet. The most costly problem is the size of the videos. My primary example, ANGLMIKU.98V, is 215 MB. The 1080p full-colour source video I converted from is about 700 MB (this is for a video that is about 9 times the resolution, 6 times the bitdepth, and has no visible artifacting. Modern video compression is crazy). Decompressing .mp4 files on the PC-9801RA fast enough to display them in real time is probably impossible in software, so this is not entirely a fair comparison. Point is, the largest hard drive that was available included with the PC-9801RA was only 40 MB, which only can hold one of my smaller examples (and even then, who would want to waste half their hard drive space on one video?). And I still have no idea how much of an impact transfer speeds will have. I don't think Neko Project II emulates those. This is why I need to test on hardware, but I don't have the hardware, and neither does my current situation as a university student permit me to really own a PC-98 at the moment. And lots of miscellaneous technical issues (to give an example cryptically: 230 V != 100 V). Plus there's the fact that it would be a mighty waste if this is the only substantial PC-98 program I ever make.</p>
+					<p>Artifacting is inevitable, and it's really quite obvious. 8088 Domination has serious artifacting as well. This is a comprimise we have to make to get a thing like this to work on such old hardware. Still, remember the dithering? Even on a flat monitor it has a dramatic effect on the visuals, but of course all the desktop PC-98 models used CRTs. It is often pointed out that the pixel art of old games looks much better on CRTs than flat screens. Well, since that pixel art was made with CRTs in mind, it only makes sense that the art would look better on a CRT. So what do these videos look like on a CRT? Well I don't have a CRT myself, but I hope a CRT filter should suffice for getting an idea of what it would look like.</p>
+					<img src="../assets/pc98video_mikuangel_crtfilter.jpg" class="bigImage" title="hatsune miku project diva on pc98 when sega?!" alt="Still from the output of my PC-98 video player showing Hatsune Miku in an alternative outift. The image has been put through a CRT filter"></img>
+					<p>Amazingly still only 16 colours. Before we apply the filter, anyway.</p>
+					<h2>Closing Remarks</h2>
+					<p>Programming in assembly language is not hard because assembly language is complicated. It's hard because assembly language is <span class="italic">simple</span>. Every instruction corresponds almost exactly to a machine instruction. There are no high-level constructs, only directives which let you control the output as well as instructions. I think every programmer should try making a truly low-level program like this for a underpowered system. Because a lot of programming these days tends to be very abstracted from hardware and for good reason. Modern computer hardware, for lack of a better term, is <span class="italic">fucking complicated</span>. And fucking diverse too. Thank goodness for compilers. But understanding how a computer actually works can help you make better programs. I certainly learned a lot about the low levels of computer operation when I learned how to program in x86 assembly off my own accord. Nobody likes an unoptimised piece of crap, after all. Though, if you do look at my source code, I don't think it's particularly 'good' in the sense of being what would pass in a professional context.</p>
+					<p>The program can be improved more, but it's a question of whether or not I want to improve it any more. The one main way to do this is to do what the creator of 8088 Domination did and start using code rather than pure data for the videos. I think I'll wait and see. In the meantime, I leave you with my own demosceney thing. For now, this is the peak of my code wizardry.</p>
+					<h2>Links and sources</h2>
+					<ul>
+					<li><a href="https://github.com/maxotaku11niku/98VIDEOP">98VIDEOP.COM source code</a></li>
+					<li><a href="https://drive.google.com/drive/folders/1yOV2QJiZee277CnVz2NsthKSnRO7FKu2">Example videos</a></li>
+					<li>Converter program forthcoming: I used <a href="https://ffmpeg.org/">libav*</a> for it so I'm trying to confirm that it's license-compatible. Please wait warmly.</li>
+					<li><a href="http://www.pc-9800.net/">With98 PC-98 models database</a>. This site is in Japanese, and has the specs of every PC-98 model.</li>
+					</ul>
+				</article>
+				<!--HINTEND:blogpost-->
+			</div>
+			<footer id="commonFooter">
+				<p>2023 Maxim Hoxha</p>
+			</footer>
+		</div>
+		<script src="../scripts/menuopen.js"></script>
+	</body>
+</html>
