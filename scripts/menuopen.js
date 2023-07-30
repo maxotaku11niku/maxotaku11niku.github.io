@@ -21,9 +21,9 @@ function menuOpenHandler(event) {
 }
 
 function menuOpenAni() {
-	currentH += 34.0;
+	currentH += 20.0;
 	menuList.style = "height: " + currentH + "pt;";
-	if(currentH >= 340.0) {
+	if(currentH >= 200.0) {
 		return;
 	}
 	requestAnimationFrame(menuOpenAni);

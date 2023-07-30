@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-GB">
 	<head>
 		<title>Stuff by Max - Blog</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" href="stdstyle.css" />
 		<link rel="shortcut icon" href="assets/icon.png" />
 	</head>
@@ -37,7 +39,33 @@
 				<h3>Latest Posts</h3>
 				<!--HINT:bloglist-->
 				<div class="vertbreak"></div>
-				<article id="postExample">
+				<article id="analogueVideo">
+					<div id="bodyHeader" class="pagehead">
+						<!--HINT:posttitle-->
+						<h1>Emulating Analogue Video</h1>
+						<!--HINTEND:posttitle-->
+					</div>
+					<img src="assets/analogue_saccharinemagic.jpg" class="bigImage" title="Emulating Analogue Video"/>
+					<p>In the distant past, everything was analogue. That meant instead of representing stuff as a sequence of 1s and 0s, it was represented in a more direct way. Images were recorded directly on film, sounds were recorded as grooves on large disks, and videos were recorded on long reels of film. The next step was to move from the mechanical and chemical methods to the magnetic and electric methods, thus giving us radio and TV, music tapes and video tapes. And then that lead to the digital methods of today. I will be talking about <span class="italic">magnetic and electronic</span> analogue video since I wrote two pieces of software that emulate that, not film. These two pieces of software, <a href="https://github.com/maxotaku11niku/AnalogueConvertEffect">AnalogueConvertEffect</a> and <a href="https://github.com/maxotaku11niku/VideoAnalogiser">VideoAnalogiser</a>, share the same basic principle of directly simulating the signals. But in order to make them, I needed to know how analogue video worked<span class="note">[1]<span>Even if I was more approximate, because otherwise my results wouldn't look right.</span></span>, so what follows is a lengthy write-up about the intricaces of analogue TV and VHS and whatnot. Lettuce begin.</p>
+					<h2>Vision from afar</h2>
+					<div class="floatRight">
+						<img src="assets/tv_broadcasting_process.png" title="how to send videos to millions of people without the internet" alt="Badly drawn and very simplified drawing of the process of TV broadcasting."/>
+						<p>Highly simplified drawing of the process of TV broadcasting</p>
+					</div>
+					<p>'Television' pretty much literally means 'vision from afar'. It is the culmination of several enabling technologies, and the basis of quite a few others. In order for a practical TV system to have become possible, the following things had to be invented:</p>
+					<ul>
+						<li>A way to record moving images and make them an electric signal.</li>
+						<li>A way to send those signals a long way.</li>
+						<li>A way to display those signals as a moving image.</li>
+					</ul>
+					<p>...</p>
+				</article>
+				<p class="dateNote">Posted 30 July 2023</p>
+				<div class="postexpand">
+					<a href="blog/20230730_analoguestuff.html">See more...</a>
+				</div>
+				<div class="vertbreak"></div>
+				<article id="pc98Video">
 					<div id="bodyHeader" class="pagehead">
 						<!--HINT:posttitle-->
 						<h1>Basic Video On PC-9801</h1>
@@ -59,7 +87,7 @@
 					<a href="blog/20230120_pc98video.html">See more...</a>
 				</div>
 				<div class="vertbreak"></div>
-				<article id="postExample">
+				<article id="magicalRacewayv0.5">
 					<div id="bodyHeader" class="pagehead">
 						<!--HINT:posttitle-->
 						<h1>Magical Raceway Now On Github</h1>

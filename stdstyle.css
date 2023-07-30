@@ -45,6 +45,40 @@ img#banner
 	{
 		display: none !important;
 	}
+	
+	span.note span
+	{
+		display: none;
+		color: #000;
+		position: absolute;
+		border: 1pt;
+		border-color: #000;
+		border-style: solid;
+		background-color: #EFF;
+		padding: 4pt;
+		text-indent: 0pt;
+		width: 50vw;
+		max-width: 240pt;
+		top: 100%;
+		left: 0;
+		font-size: 10pt;
+	}
+	
+	div.floatRight
+	{
+		float: right;
+		margin: 8pt;
+		width: 30% !important;
+		text-align: center;
+	}
+	
+	div.floatLeft
+	{
+		float: left;
+		margin: 8pt;
+		width: 30% !important;
+		text-align: center;
+	}
 }
 
 img.platformIcon
@@ -54,8 +88,11 @@ img.platformIcon
 
 img.previewImage
 {
-	height: 200pt;
-	margin: 8pt;
+	width: 90%;
+	max-width: 500pt;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 img.galleryImage
@@ -101,7 +138,7 @@ div.topnavmobile p
 	padding-right: 24pt;
 	border: 4pt;
 	font-family: "Trebuchet MS";
-	font-size: 56pt;
+	font-size: 32pt;
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
@@ -134,7 +171,7 @@ div.topnavmobile ul.open
 	right: 30%;
 	background-color: #EEEEEE;
 	font-family: "Trebuchet MS";
-	font-size: 48pt;
+	font-size: 24pt;
 	list-style-position: initial;
 	list-style-type: none;
 	padding: 0pt;
@@ -215,14 +252,15 @@ div.postnav ul
 	list-style-position: initial;
 	list-style-type: none;
 	font-size: 16pt;
+	width: 90%;
 }
 
 div.postnav ul li
 {
-	display: inline;
+	display: inline-block;
 	color: #000000;
-	margin-left: 48pt;
-	margin-right: 48pt;
+	width: 50%;
+	text-align:center;
 }
 
 div.pagehead
@@ -286,7 +324,7 @@ div.floatRight
 {
 	float: right;
 	margin: 8pt;
-	width: 30%;
+	width: 60%;
 	text-align: center;
 }
 
@@ -308,7 +346,7 @@ div.floatLeft
 {
 	float: left;
 	margin: 8pt;
-	width: 30%;
+	width: 60%;
 	text-align: center;
 }
 
@@ -349,6 +387,40 @@ div.code p
 	margin-bottom: 2pt;
 }
 
+span.note
+{
+	color: #88F;
+	font-size: 70%;
+	position: relative;
+	top: -4pt;
+}
+
+span.note span
+{
+	display: none;
+	color: #000;
+	position: absolute;
+	border: 1pt;
+	border-color: #000;
+	border-style: solid;
+	background-color: #EFF;
+	padding: 4pt;
+	text-indent: 0pt;
+	width: 80vw;
+	max-width: 240pt;
+	top: 100%;
+	font-size: 10pt;
+}
+
+span.note:hover span
+{
+	display: block;
+}
+
+span.note:active span
+{
+	display: block;
+}
 
 span.bold
 {
