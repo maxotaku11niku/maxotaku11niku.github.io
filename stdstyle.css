@@ -1,5 +1,6 @@
 body
 {
+	font-family: sans-serif;
 	margin: 0pt;
 	background-color: #110044;
 	background-image: url(assets/bg.png);
@@ -375,14 +376,14 @@ div.code
 
 div.code h2
 {
-	font-family: "Consolas";
+	font-family: monospace;
 	font-variant: small-caps;
     font-size: 12pt;
 }
 
 div.code p
 {
-	font-family: "Consolas";
+	font-family: monospace;
 	margin-top: 2pt;
 	margin-bottom: 2pt;
 }
@@ -467,7 +468,7 @@ span.subscript
 
 span.code
 {
-	font-family: "Consolas";
+	font-family: monospace;
 	border: 1pt;
 	border-style: solid;
 	border-radius: 4pt;
@@ -580,7 +581,6 @@ h3
 
 p
 {
-	font-family: "Noto Sans";
 	font-size: 12pt;
 	margin-left: 12pt;
 	margin-right: 12pt;
@@ -588,7 +588,6 @@ p
 
 ul
 {
-	font-family: "Noto Sans";
 	font-size: 12pt;
 	margin-left: 12pt;
 	margin-right: 12pt;
